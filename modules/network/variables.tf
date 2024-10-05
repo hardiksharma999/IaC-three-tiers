@@ -1,0 +1,10 @@
+variable "vnet_name" {}
+variable "address_space" {}
+variable "frontend_subnet" {}
+variable "frontend_subnet_address_space" {}
+variable "backend_subnet" {}
+variable "backend_subnet_address_space" {}
+variable "db_subnet" {}
+variable "db_subnet_address_space" {}
+variable "resource_group_name" {}
+variable "location" {}

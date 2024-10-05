@@ -1,0 +1,50 @@
+---
+- name: Deploy RSA Application
+  hosts: frontend_servers
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start Nginx
+      service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Copy front-end application code
+      copy:
+        src: /path/to/your/frontend/app
+        dest: /var/www/html/
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+- hosts: backend_servers
+  tasks:
+    - name: Install backend application
+      apt:
+        name: <backend_app_name>
+        state: present
+
+    - name: Start backend application
+      service:
+        name: <backend_service_name>
+        state: started
+        enabled: true
+
+- hosts: db_servers
+  tasks:
+    - name: Configure MySQL
+      mysql_user:
+        name: "{{ db_user }}"
+        password: "{{ db_password }}"
+        priv: '*.*:ALL'
+        state: present
+
+    - name: Ensure MySQL service is running
+      service:
+        name: mysql
+        state: started
+        enabled: true
